@@ -1,5 +1,5 @@
 package com.example.sam2023.model;
 
-public class Admin {
+public class Admin extends AbstractUser{
     
 }

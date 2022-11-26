@@ -1,5 +1,5 @@
 package com.example.sam2023.model;
 
-public class PCM {
+public class PCM extends AbstractUser{
     
 }
