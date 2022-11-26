@@ -1,4 +1,4 @@
-package com.example.sam2023.persistance;
+package com.example.sam2023.persistance.dao;
 
 import java.util.Collection;
 

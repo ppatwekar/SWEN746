@@ -1,6 +1,8 @@
-package com.example.sam2023.persistance;
+package com.example.sam2023.persistance.daoFiles;
 
 import java.util.Collection;
+
+import com.example.sam2023.persistance.dao.DAO;
 
 public abstract class AbstractDAOFile<T> implements DAO<T>{
 
