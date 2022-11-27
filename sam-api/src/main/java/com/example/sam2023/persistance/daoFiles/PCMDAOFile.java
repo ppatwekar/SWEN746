@@ -5,6 +5,6 @@ import com.example.sam2023.persistance.dao.PCMDAO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PCMDAOFile extends AbstractDAOFile<PCM> implements PCMDAO{
+public class PCMDAOFile extends AbstractUserDAOFile<PCM> implements PCMDAO{
     
 }

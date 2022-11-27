@@ -6,6 +6,6 @@ import com.example.sam2023.persistance.dao.AdminDAO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AdminDAOFile extends AbstractDAOFile<Admin> implements AdminDAO{
+public class AdminDAOFile extends AbstractUserDAOFile<Admin> implements AdminDAO{
     
 }

@@ -5,6 +5,6 @@ import com.example.sam2023.persistance.dao.SubmittorDAO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SubmittorDAOFile extends AbstractDAOFile<Submittor> implements SubmittorDAO{
+public class SubmittorDAOFile extends AbstractUserDAOFile<Submittor> implements SubmittorDAO{
     
 }
