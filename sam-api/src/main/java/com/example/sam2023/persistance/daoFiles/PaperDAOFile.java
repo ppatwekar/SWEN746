@@ -7,4 +7,5 @@ import org.springframework.stereotype.Component;
 @Component
 public class PaperDAOFile extends AbstractDAOFile<Paper> implements PaperDAO{
     
+    
 }
