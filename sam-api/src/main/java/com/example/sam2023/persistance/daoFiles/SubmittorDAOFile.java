@@ -14,15 +14,5 @@ public class SubmittorDAOFile extends AbstractUserDAOFile<Submittor> implements 
         super(objectMapper, filename);
     }
 
-    @Override
-    public boolean addPaperSubmission(int submittorId, MultipartFile file) {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
-    @Override
-    public Paper[] getAllPapers() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

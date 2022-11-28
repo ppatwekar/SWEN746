@@ -9,11 +9,6 @@ import com.example.sam2023.model.Submittor;
 
 public interface SubmittorDAO extends DAO<Submittor>{
     
-    public boolean addPaperSubmission(int submittorId , MultipartFile file);
-    public Paper[] getAllPapers( );
 
-    
-// +updatePaper( paperID: Integer):Boolean
-// +createNewSubmittor(Submittor u):Boolean
     
 }
