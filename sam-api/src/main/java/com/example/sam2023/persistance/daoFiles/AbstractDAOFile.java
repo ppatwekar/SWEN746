@@ -21,6 +21,7 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
     protected String filename;
     protected Map<Integer, T> map; 
     private static int nextId;
+    private Class<T> class1;
 
     public AbstractDAOFile(ObjectMapper objectMapper, String filename) {
         this.objectMapper = objectMapper;
@@ -94,6 +95,9 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
     private boolean load() throws StreamReadException, DatabindException, IOException{
         this.map = new HashMap<>();
 
+        //Collection<String> = this.objectMapper.readValue(new File(this.filename), String.class)
+
+        //ObjectMapper and generic types.
         Collection<T> objs = this.objectMapper.readValue(new File(this.filename), ((Class<Collection<T>>) ((ParameterizedType) getClass()
         .getGenericSuperclass()).getActualTypeArguments()[0]));
         AbstractDAOFile.nextId = 0;
