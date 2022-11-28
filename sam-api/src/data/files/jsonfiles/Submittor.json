@@ -1,32 +1,9 @@
 [
-{
+  {
     "id": 11,
     "name": "Mr. Nice",
-    "papersSubmitted":[
-        {
-            "id": 12
-        },
-        {
-            "id": 18
-        },
-        {
-            "id": 1
-        }
-    ]
-},{
-    "id": 12,
-    "name": "Mr. Bad",
-    "papersSubmitted":[
-        {
-            "id": 122
-        },
-        {
-            "id": 128
-        },
-        {
-            "id": 21
-        }
-    ]
-}
-
+    "papersSubmitted": [12, 18, 1],
+    "email": "nice@nice.com",
+    "password": "nice"
+  }
 ]

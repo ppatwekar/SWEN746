@@ -10,20 +10,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Submittor extends AbstractUser{
     private static final Logger LOG = Logger.getLogger(Submittor.class.getName());
     
-    @JsonProperty("id") private int id;
+    //@JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("papersSubmitted") private Collection<Integer> papersSubmitted;
-    public int getId() {
-        return id;
-    }
-    public Submittor(int id, String name, Collection<Integer> papersSubmitted) {
-        this.id = id;
+    
+    public Submittor(@JsonProperty("id") int id, @JsonProperty("name") String name, 
+    @JsonProperty("papersSubmitted") Collection<Integer> papersSubmitted, @JsonProperty("email") String email, @JsonProperty("password") String password) {
+        super(id, email, password);
+        //this.id = id;
         this.name = name;
         this.papersSubmitted = new LinkedList<Integer>();
     }
-    public void setId(int id) {
-        this.id = id;
-    }
+    
     public String getName() {
         return name;
     }

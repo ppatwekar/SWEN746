@@ -8,9 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.sam2023.model.AbstractIdFile;
+import com.example.sam2023.model.Submittor;
 import com.example.sam2023.persistance.dao.DAO;
 import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T>{
@@ -91,7 +94,7 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
     private boolean load() throws StreamReadException, DatabindException, IOException{
         this.map = new HashMap<>();
 
-        Collection<T> objs = (Collection<T>) this.objectMapper.readValue(new File(this.filename), ((Class<T>) ((ParameterizedType) getClass()
+        Collection<T> objs = this.objectMapper.readValue(new File(this.filename), ((Class<Collection<T>>) ((ParameterizedType) getClass()
         .getGenericSuperclass()).getActualTypeArguments()[0]));
         AbstractDAOFile.nextId = 0;
 
