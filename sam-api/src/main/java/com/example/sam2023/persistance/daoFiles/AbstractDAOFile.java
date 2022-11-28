@@ -57,24 +57,17 @@ public abstract class AbstractDAOFile<T> implements DAO<T>{
         
     }
 
-    private boolean load() throws IOException {
-        heroes = new TreeMap<>();
-        nextId = 0;
+    private boolean load(){
+        
 
         // Deserializes the JSON objects from the file into an array of heroes
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
-        T[] TArray = objectMapper.readValue(new File(filename),T[].class);
 
         // Add each T to the tree map and keep track of the greatest id
-        for (T T : TArray) {
-            Tes.put(T.getId(),T);
-            if (T.getId() > nextId)
-                nextId = T.getId();
-        }
+        
         // Make the next id one greater than the maximum from the file
-        ++nextId;
-        return true;
+        return false;
     }
     
 }
