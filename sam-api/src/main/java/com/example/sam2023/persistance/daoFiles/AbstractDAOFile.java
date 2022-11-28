@@ -6,25 +6,34 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.sam2023.model.AbstractIdFile;
 import com.example.sam2023.persistance.dao.DAO;
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public abstract class AbstractDAOFile<T> implements DAO<T>{
+public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T>{
     protected ObjectMapper objectMapper;
     protected String filename;
     protected Map<Integer, T> map; 
+    private static int nextId;
 
     public AbstractDAOFile(ObjectMapper objectMapper, String filename) {
         this.objectMapper = objectMapper;
         this.filename = "filename";
         this.map = new HashMap<>();
+        try{
+            this.load();
+        }catch(Exception e){
+            System.out.println("Error in loading "+this.filename);
+        }
     }
 
     @Override
     public T get(int id) {
-        // TODO Auto-generated method stub
-        
-        return null;
+        synchronized(this.map){
+            return this.map.get(id);
+        }
     }
 
     @Override
@@ -57,17 +66,23 @@ public abstract class AbstractDAOFile<T> implements DAO<T>{
         
     }
 
-    private boolean load(){
-        
+    private boolean load() throws StreamReadException, DatabindException, IOException{
+        this.map = new HashMap<>();
 
-        // Deserializes the JSON objects from the file into an array of heroes
-        // readValue will throw an IOException if there's an issue with the file
-        // or reading from the file
+        Object[] objs = this.objectMapper.readValue(new File(this.filename), Object[].class);
+        AbstractDAOFile.nextId = 0;
 
-        // Add each T to the tree map and keep track of the greatest id
-        
-        // Make the next id one greater than the maximum from the file
-        return false;
+
+        for(Object o : objs){
+            T obj = (T)o;
+            this.map.put(obj.getId(), obj);
+            if(obj.getId() > AbstractDAOFile.nextId){
+                AbstractDAOFile.nextId = obj.getId(); //hmm nvm
+            }
+        }
+
+        ++AbstractDAOFile.nextId;
+        return true;
     }
     
 }
