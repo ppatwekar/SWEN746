@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public abstract class AbstractUser implements UserNotifications {
+public abstract class AbstractUser extends AbstractIdFile implements UserNotifications {
     protected Collection<Message> notifications;
     @JsonProperty("id") private int id;
     @JsonProperty("email") private String email;

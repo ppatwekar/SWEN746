@@ -37,21 +37,31 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
     }
 
     @Override
-    public void save(T obj) {
-        // TODO Auto-generated method stub
-        
+    public void save() throws IOException{
+         Collection<T> values = this.map.values();
+         this.objectMapper.writeValue(new File(this.filename), values);
     }
 
     @Override
-    public T update(T obj) {
-        // TODO Auto-generated method stub
-        return null;
+    public T update(T obj) throws IOException {
+        synchronized(this.map){
+            if(this.map.containsKey(obj.getId())){
+                this.map.put(obj.getId(), obj);
+                this.save();
+                return obj;
+            }
+            return null;
+        }
     }
 
     @Override
-    public T create(T obj) {
-        // TODO Auto-generated method stub
-        return null;
+    public T create(T obj) throws IOException{
+        synchronized(this.map){
+            obj.setID(this.nextId());
+            this.map.put(obj.getId(), obj);
+            this.save();
+            return obj;
+        }
     }
 
     @Override
@@ -83,6 +93,12 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
 
         ++AbstractDAOFile.nextId;
         return true;
+    }
+
+    private int nextId(){
+        int id = AbstractDAOFile.nextId;
+        AbstractDAOFile.nextId++;
+        return id;
     }
     
 }
