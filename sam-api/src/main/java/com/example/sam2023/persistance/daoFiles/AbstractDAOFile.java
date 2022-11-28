@@ -2,6 +2,7 @@ package com.example.sam2023.persistance.daoFiles;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
 
     public AbstractDAOFile(ObjectMapper objectMapper, String filename) {
         this.objectMapper = objectMapper;
-        this.filename = "filename";
+        this.filename = filename;
         this.map = new HashMap<>();
         try{
             this.load();
@@ -86,15 +87,16 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
         }
     }
 
+    @SuppressWarnings("unchecked")
     private boolean load() throws StreamReadException, DatabindException, IOException{
         this.map = new HashMap<>();
 
-        Object[] objs = this.objectMapper.readValue(new File(this.filename), Object[].class);
+        Collection<T> objs = (Collection<T>) this.objectMapper.readValue(new File(this.filename), ((Class<T>) ((ParameterizedType) getClass()
+        .getGenericSuperclass()).getActualTypeArguments()[0]));
         AbstractDAOFile.nextId = 0;
 
 
-        for(Object o : objs){
-            T obj = (T)o;
+        for(T obj : objs){
             this.map.put(obj.getId(), obj);
             if(obj.getId() > AbstractDAOFile.nextId){
                 AbstractDAOFile.nextId = obj.getId(); //hmm nvm
