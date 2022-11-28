@@ -8,6 +8,7 @@ public interface DAO<T> {
     void save() throws IOException;
     T update(T obj) throws IOException;
     T create(T obj) throws IOException;
+    void delete(T obj);
     Collection<T> getAll();
-    void deleteAll();
+    void deleteAll() throws IOException;
 }

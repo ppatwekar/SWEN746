@@ -66,14 +66,24 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
 
     @Override
     public Collection<T> getAll() {
-        // TODO Auto-generated method stub
-        return null;
+        synchronized(this.map){
+            return this.map.values();
+        }
     }
 
     @Override
-    public void deleteAll() {
-        // TODO Auto-generated method stub
-        
+    public void deleteAll() throws IOException {
+        synchronized(this.map){
+            this.map = new HashMap<>();
+            this.save();
+        }
+    }
+
+    @Override
+    public void delete(T obj){
+        synchronized(this.map){
+            this.map.remove(obj.getId());
+        }
     }
 
     private boolean load() throws StreamReadException, DatabindException, IOException{
