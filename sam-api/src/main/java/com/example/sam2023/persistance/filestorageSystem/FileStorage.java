@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.annotation.Resource;
+import org.springframework.core.io.Resource;
 
 public interface FileStorage {
     void init();
@@ -17,7 +17,7 @@ public interface FileStorage {
 
     Path load(String filename);
 
-    Resource loadAsResource(String filename);
+    Resource loadAsResource(String filename) throws IOException;
 
     void deleteAll();
 }

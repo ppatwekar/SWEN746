@@ -1,31 +1,41 @@
 package com.example.sam2023.persistance.filestorageSystem;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.annotation.Resource;
+import org.springframework.core.io.Resource;
 
+@Service
 public class FileStorageFile implements FileStorage {
+
+    public FileStorageFile(){
+        this.init();
+    }
 
     @Override
     public void init() {
-        DirectoryEnum[] directories = DirectoryEnum.values();
+        // DirectoryEnum[] directories = DirectoryEnum.values();
 
-        Arrays.stream(directories)
-        .map(d->Paths.get(d.getPath()))
-        .forEach(p->{
-            try {
-                Files.createDirectory(p);
-            } catch (IOException e) {
-                System.out.println("Could not create directory: "+p.getFileName());
-            }
-        });
+        // Arrays.stream(directories)
+        // .map(d->Paths.get(d.getPath()))
+        // .forEach(p->{
+        //     try {
+        //         Files.createDirectory(p);
+        //     } catch (IOException e) {
+        //         e.printStackTrace();
+        //         System.out.println("Could not create directory: "+p.getFileName());
+        //     }
+        // });
     }
 
     @Override
@@ -33,6 +43,8 @@ public class FileStorageFile implements FileStorage {
         if(file.isEmpty()){
             throw new IOException("Cant store empty file");
         }
+
+        Files.copy(file.getInputStream(), Paths.get(foldername).resolve(file.getOriginalFilename()));
     }
 
     @Override
@@ -44,13 +56,24 @@ public class FileStorageFile implements FileStorage {
     @Override
     public Path load(String filename) {
         // TODO Auto-generated method stub
-        return null;
+        return Paths.get(filename);
     }
 
     @Override
-    public Resource loadAsResource(String filename) {
-        // TODO Auto-generated method stub
-        return null;
+    public Resource loadAsResource(String filename) throws IOException {
+        Path file = this.load(filename);
+        try {
+            Resource resource = new UrlResource(file.toUri());
+            if(resource.exists() || resource.isReadable()){
+                return resource;
+            }
+            else{
+                throw new IOException("Could not load as resource");
+            }
+        } catch (MalformedURLException e) {
+            System.out.println("Could not load as Resource");
+            return null;
+        }
     }
 
     @Override
@@ -58,5 +81,7 @@ public class FileStorageFile implements FileStorage {
         // TODO Auto-generated method stub
         
     }
+
+
     
 }
