@@ -21,12 +21,12 @@ import java.io.IOException;
 @RequestMapping("/")
 public class SubmittorController {
     private static final Logger LOG = Logger.getLogger(SubmittorController.class.getName());
-    private SubmittorDAO sDAO;
-    private SubmittorService subService;
+    private SubmittorDAO submittorDAO;
+    private SubmittorService submittorService;
 
-    public SubmittorController(SubmittorDAO sDAO, SubmittorService subService) {
-        this.sDAO = sDAO;
-        this.subService = subService;
+    public SubmittorController(SubmittorDAO submittorDAO, SubmittorService submittorService) {
+        this.submittorDAO = submittorDAO;
+        this.submittorService = submittorService;
     }
 
     @GetMapping("subs/{id}")
@@ -34,7 +34,7 @@ public class SubmittorController {
         // LOG.log( "GET /Submittor {0}", id);
         try {
 
-            Submittor sub = sDAO.get(id);
+            Submittor sub = submittorDAO.get(id);
             if (sub != null)
                 return new ResponseEntity<>(sub, HttpStatus.OK);
             else
