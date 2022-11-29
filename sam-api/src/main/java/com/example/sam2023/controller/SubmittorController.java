@@ -29,7 +29,7 @@ public class SubmittorController {
         this.submittorService = submittorService;
     }
 
-    @GetMapping("subs/{id}")
+    @GetMapping("submittor/{id}")
     public ResponseEntity<Submittor> getProduct( @PathVariable int id) {
         // LOG.log( "GET /Submittor {0}", id);
         try {
