@@ -19,7 +19,7 @@ public class Submittor extends AbstractUser{
         super(id, email, password);
         //this.id = id;
         this.name = name;
-        this.papersSubmitted = new LinkedList<Integer>();
+        this.papersSubmitted = papersSubmitted;
     }
     
     public String getName() {
