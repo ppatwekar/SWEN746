@@ -20,8 +20,7 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
     protected ObjectMapper objectMapper;
     protected String filename;
     protected Map<Integer, T> map; 
-    private static int nextId;
-    private Class<T> class1;
+    protected int nextId;
 
     public AbstractDAOFile(ObjectMapper objectMapper, String filename) {
         this.objectMapper = objectMapper;
@@ -98,26 +97,30 @@ public abstract class AbstractDAOFile<T extends AbstractIdFile> implements DAO<T
         //Collection<String> = this.objectMapper.readValue(new File(this.filename), String.class)
 
         //ObjectMapper and generic types.
-        Collection<T> objs = this.objectMapper.readValue(new File(this.filename), ((Class<Collection<T>>) ((ParameterizedType) getClass()
-        .getGenericSuperclass()).getActualTypeArguments()[0]));
-        AbstractDAOFile.nextId = 0;
+        // Collection<T> objs = this.objectMapper.readValue(new File(this.filename), ((Class<Collection<T>>) ((ParameterizedType) getClass()
+        // .getGenericSuperclass()).getActualTypeArguments()[0]));
+        // this.nextId = 0;
+
+        T[] objs = this.readFile();
 
 
         for(T obj : objs){
             this.map.put(obj.getId(), obj);
-            if(obj.getId() > AbstractDAOFile.nextId){
-                AbstractDAOFile.nextId = obj.getId(); //hmm nvm
+            if(obj.getId() > this.nextId){
+                this.nextId = obj.getId(); //hmm nvm
             }
         }
 
-        ++AbstractDAOFile.nextId;
+        ++this.nextId;
         return true;
     }
 
     private int nextId(){
-        int id = AbstractDAOFile.nextId;
-        AbstractDAOFile.nextId++;
+        int id = this.nextId;
+        this.nextId++;
         return id;
     }
+
+    protected abstract T[] readFile() throws StreamReadException, DatabindException, IOException;
     
 }
