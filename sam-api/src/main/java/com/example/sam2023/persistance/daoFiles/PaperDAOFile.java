@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,5 +25,17 @@ public class PaperDAOFile extends AbstractDAOFile<Paper> implements PaperDAO{
     protected Paper[] readFile() throws StreamReadException, DatabindException, IOException{
         Paper[] data = this.objectMapper.readValue(new File(this.filename), Paper[].class);
         return data;
+    }
+
+    @Override
+    public Paper[] getAllSubmittorPapers(int id) {
+        Collection<Paper> papers=getAll();
+        Collection<Paper> list = new ArrayList<Paper>();
+        for (Paper paper : papers) {
+            if(id == paper.getSubmittorId()){
+                list.add(paper);
+            }
+        }
+        return  list.toArray(new Paper[list.size()] );
     }
 }

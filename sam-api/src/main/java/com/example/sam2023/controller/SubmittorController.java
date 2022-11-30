@@ -5,17 +5,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+
+import com.example.sam2023.model.Paper;
 import com.example.sam2023.model.Submittor;
+import com.example.sam2023.persistance.dao.PaperDAO;
 import com.example.sam2023.persistance.dao.SubmittorDAO;
+import com.example.sam2023.service.PaperService;
 import com.example.sam2023.service.SubmittorService;
 
 import java.io.IOException;
-
 
 @RestController
 @RequestMapping("/")
@@ -23,14 +29,19 @@ public class SubmittorController {
     private static final Logger LOG = Logger.getLogger(SubmittorController.class.getName());
     private SubmittorDAO submittorDAO;
     private SubmittorService submittorService;
+    private PaperService paperService;
+    private PaperDAO paperDAO;
 
-    public SubmittorController(SubmittorDAO submittorDAO, SubmittorService submittorService) {
+    public SubmittorController(SubmittorDAO submittorDAO, SubmittorService submittorService, PaperService paperService,
+            PaperDAO paperDAO) {
         this.submittorDAO = submittorDAO;
         this.submittorService = submittorService;
+        this.paperService = paperService;
+        this.paperDAO = paperDAO;
     }
 
     @GetMapping("submittor/{id}")
-    public ResponseEntity<Submittor> getProduct( @PathVariable int id) {
+    public ResponseEntity<Submittor> getSubmittorById(@PathVariable int id) {
         // LOG.log( "GET /Submittor {0}", id);
         try {
 
@@ -41,6 +52,65 @@ public class SubmittorController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, ex.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("submittor/{id}/papers")
+    public ResponseEntity<Paper[]> getAllPapers(@PathVariable int id) {
+        // LOG.log( "GET /Submittor {0}", id);
+        try {
+
+            Paper[] papers = paperDAO.getAllSubmittorPapers(id);
+            if (papers != null)
+                return new ResponseEntity<>(papers, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, ex.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("submittor/addPaper")
+    public ResponseEntity<Paper> addPaper(@RequestBody Paper paper) {
+        // LOG.log( "GET /Submittor {0}", id);
+        try {
+
+            Paper paperInner = paperDAO.create(paper);// maybe do in paper service
+            boolean submittorUpdated=submittorService.addPaperSubmission(paperInner.getSubmittorId(), paperInner.getId(), null);
+
+            if (paperInner != null && submittorUpdated)
+                return new ResponseEntity<>(paperInner, HttpStatus.CREATED);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("submittor/updatePaper")
+    public ResponseEntity<Paper> updatePaper(@RequestBody Paper paper) {
+        // LOG.log( "GET /Submittor {0}", id);
+        try {
+
+            if (submittorService.updatePaper(paper.getId(),paper.getSubmittorId())  ) {
+                Paper paperInner = paperDAO.update(paper);// maybe do in paper service
+                if (paperInner != null)
+                    return new ResponseEntity<>(paperInner, HttpStatus.CREATED);
+                else
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            } else {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+            }
+
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

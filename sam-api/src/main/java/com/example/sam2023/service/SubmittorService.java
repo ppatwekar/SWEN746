@@ -2,8 +2,13 @@ package com.example.sam2023.service;
 
 import com.example.sam2023.model.Message;
 import com.example.sam2023.model.Paper;
+import com.example.sam2023.model.Submittor;
 import com.example.sam2023.model.UserCredential;
 import com.example.sam2023.persistance.dao.SubmittorDAO;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,19 +57,37 @@ public class SubmittorService implements UserServices{
         return false;
     }
 
-    public boolean addPaperSubmission(int submittorId, MultipartFile file) {
+    public boolean addPaperSubmission(int submittorId, int paperId,MultipartFile file) {
         // TODO Auto-generated method stub
-        return false;
+        Submittor s =submittorDAO.get(submittorId);
+        Collection<Integer> papersSubmitted=s.getPapersSubmitted();
+        papersSubmitted.add(paperId);
+        s.setPapersSubmitted(papersSubmitted);
+        try {
+            submittorDAO.update(s);
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public Paper[] getAllPapers() {
-        Paper[] p1=paperService.getAllPapers();
+    public Paper[] getAllPapers(int id) {
+
+        Paper[] p1=paperService.getAllSubmittorPapers(id);
         return p1;
     }
 
-    public boolean updatePaper(int paperID) {
+    public boolean updatePaper(int paperId,int submittorId) {
         // TODO Auto-generated method stub
-        return false;
+        Submittor s =submittorDAO.get(submittorId);
+        Collection<Integer> papersSubmitted=s.getPapersSubmitted();
+        for (Integer id : papersSubmitted) {
+            if(id==paperId)
+                return true;
+        }
+      
+            return false;
     }
     
 }

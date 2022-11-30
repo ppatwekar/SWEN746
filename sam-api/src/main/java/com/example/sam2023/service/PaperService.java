@@ -14,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class PaperService {
     private PaperDAO paperDAO;
 
+    public PaperService(PaperDAO paperDAO) {
+        this.paperDAO = paperDAO;
+    }
     public void  addReview(int pcmId,int  paperId,String review ){
         
     };
@@ -29,8 +32,9 @@ public class PaperService {
     public boolean updatePaper(int paperID){
         return false;
     }
-    public Paper[]getAllPapers( ){
-        return null;
+    public Paper[] getAllSubmittorPapers( int id){
+        Paper[] allPapers = paperDAO.getAllSubmittorPapers(id);
+        return allPapers;
     }
 
 
