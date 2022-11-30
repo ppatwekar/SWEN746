@@ -2,7 +2,10 @@ package com.example.sam2023.service;
 
 import com.example.sam2023.model.Paper;
 import com.example.sam2023.persistance.dao.PaperDAO;
+import com.example.sam2023.persistance.filestorageSystem.DirectoryEnum;
+import com.example.sam2023.persistance.filestorageSystem.FileStorage;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
@@ -13,9 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class PaperService {
     private PaperDAO paperDAO;
+    private FileStorage fileStorage;
 
-    public PaperService(PaperDAO paperDAO) {
+    public PaperService(PaperDAO paperDAO, FileStorage fileStorage) {
         this.paperDAO = paperDAO;
+        this.fileStorage = fileStorage;
     }
     public void addReview(int pcmId,int  paperId,String review ){
         
@@ -35,6 +40,18 @@ public class PaperService {
     public Paper[] getAllSubmittorPapers( int id){
         Paper[] allPapers = paperDAO.getAllSubmittorPapers(id);
         return allPapers;
+    }
+
+    public void storeSubmittorPaper(MultipartFile file, int submittorId) throws IOException{
+        String path = DirectoryEnum.makePaperFolderPath(DirectoryEnum.SUBMITTOR_PAPERS, submittorId);
+        if(this.fileStorage.dirExists(path)){
+            this.fileStorage.clearDirectory(path);
+        }
+        else{
+            this.fileStorage.makeDir(path);  
+        }
+
+        this.fileStorage.store(file, path);
     }
 
 

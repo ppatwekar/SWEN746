@@ -21,20 +21,31 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.sam2023.persistance.filestorageSystem.DirectoryEnum;
 import com.example.sam2023.persistance.filestorageSystem.FileStorage;
+import com.example.sam2023.service.PaperService;
 
 @RestController
 @RequestMapping("test")
 public class TestController {
     private FileStorage fileStorage;
-    public TestController(FileStorage fileStorage){
+    private PaperService paperService;
+    public TestController(FileStorage fileStorage, PaperService paperService){
         this.fileStorage = fileStorage;
+        this.paperService = paperService;
     }
 
     @PostMapping("/")
     public ResponseEntity<String> handleUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
         try {
-            this.fileStorage.store(file, DirectoryEnum.SUBMITTOR_PAPERS.getPath());
+            // this.fileStorage.makeDir(DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34");
+            // this.fileStorage.store(file, DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34");
+            // System.out.println(this.fileStorage.dirExists(DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34"));
+            // this.fileStorage.clearDirectory(DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34");
+            // System.out.println(this.fileStorage.dirExists(DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34"));
+            
+
+            this.paperService.storeSubmittorPaper(file, 34);
             return new ResponseEntity<>("success" ,HttpStatus.OK);
+
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
