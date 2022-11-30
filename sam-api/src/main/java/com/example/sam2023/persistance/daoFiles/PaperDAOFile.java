@@ -38,4 +38,26 @@ public class PaperDAOFile extends AbstractDAOFile<Paper> implements PaperDAO{
         }
         return  list.toArray(new Paper[list.size()] );
     }
+
+    @Override
+    public Paper[] getPapersById(int id) {
+        Collection<Paper> papers=getAll();
+        Collection<Paper> list = new ArrayList<Paper>();
+        for (Paper paper : papers) {
+            if(id == paper.getId()){
+                list.add(paper);
+            }
+        }
+        return  list.toArray(new Paper[list.size()] );
+    }
+
+    @Override
+    public Paper[] getAllPapers() {
+        Collection<Paper> papers=getAll();
+        Collection<Paper> list = new ArrayList<Paper>();
+        for (Paper paper : papers) {
+            list.add(paper);
+        }
+        return  list.toArray(new Paper[list.size()] );
+    }
 }

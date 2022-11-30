@@ -59,5 +59,9 @@ public class PaperService {
         return this.fileStorage.getFile(path, "Reviews");
     }
 
+    public Paper[] getAllPapers() {
+        Paper[] allPapers = paperDAO.getAllPapers();
+        return allPapers;
+    }
 
 }
