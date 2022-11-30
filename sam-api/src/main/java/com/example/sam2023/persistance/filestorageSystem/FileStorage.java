@@ -20,4 +20,14 @@ public interface FileStorage {
     Resource loadAsResource(String filename) throws IOException;
 
     void deleteAll();
+
+    void makeDir(String folderPath);
+
+    boolean deleteFile(String filepath);
+
+    boolean dirExists(String folderPath);
+
+    boolean fileExists(String filePath);
+
+    boolean clearDirectory(String folderPath);
 }

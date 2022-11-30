@@ -82,6 +82,36 @@ public class FileStorageFile implements FileStorage {
         
     }
 
+    @Override
+    public void makeDir(String folderPath){
+        File file = new File(folderPath);
+        file.mkdir();
+    }
+
+    @Override
+    public boolean dirExists(String folderPath){
+        Path path = Paths.get(folderPath);
+        return Files.exists(path);
+    }
+
+    @Override
+    public boolean deleteFile(String filepath){
+        return new File(filepath).delete();
+    }
+
+    @Override 
+    public boolean fileExists(String filepath){
+        return new File(filepath).exists();
+    }
+
+    @Override
+    public boolean clearDirectory(String folderPath){
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+        Arrays.stream(files).forEach(f->f.delete());
+        return true;
+    }
+
 
     
 }
