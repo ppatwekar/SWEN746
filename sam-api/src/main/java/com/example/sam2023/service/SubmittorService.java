@@ -78,7 +78,7 @@ public class SubmittorService implements UserServices{
         return p1;
     }
 
-    public boolean updatePaper(int paperId,int submittorId) {
+    public boolean checkIfSubmittorHasPaper(int paperId,int submittorId) {
         // TODO Auto-generated method stub
         Submittor s =submittorDAO.get(submittorId);
         Collection<Integer> papersSubmitted=s.getPapersSubmitted();

@@ -17,7 +17,7 @@ public class PaperService {
     public PaperService(PaperDAO paperDAO) {
         this.paperDAO = paperDAO;
     }
-    public void  addReview(int pcmId,int  paperId,String review ){
+    public void addReview(int pcmId,int  paperId,String review ){
         
     };
     public Map<Integer, String> getPartialPaperInformation(Collection<Integer> paperIds){

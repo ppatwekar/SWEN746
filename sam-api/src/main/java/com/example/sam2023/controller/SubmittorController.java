@@ -97,7 +97,7 @@ public class SubmittorController {
         // LOG.log( "GET /Submittor {0}", id);
         try {
 
-            if (submittorService.updatePaper(paper.getId(),paper.getSubmittorId())  ) {
+            if (submittorService.checkIfSubmittorHasPaper(paper.getId(),paper.getSubmittorId())  ) {
                 Paper paperInner = paperDAO.update(paper);// maybe do in paper service
                 if (paperInner != null)
                     return new ResponseEntity<>(paperInner, HttpStatus.CREATED);
