@@ -30,4 +30,6 @@ public interface FileStorage {
     boolean fileExists(String filePath);
 
     boolean clearDirectory(String folderPath);
+
+    Resource getFile(String folderpath, String... ignore) throws IOException;
 }

@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.core.io.UrlResource;
@@ -110,6 +112,19 @@ public class FileStorageFile implements FileStorage {
         File[] files = folder.listFiles();
         Arrays.stream(files).forEach(f->f.delete());
         return true;
+    }
+
+    @Override 
+    public Resource getFile(String folderpath, String... ignore) throws IOException{
+        File folder = new File(folderpath);
+        File[] list = folder.listFiles();
+        List<String> toIgnore = List.of(ignore);
+
+        List<File> files = Arrays.stream(list).filter(f->!toIgnore.contains(f.getName())).collect(Collectors.toList());
+
+        File toGet = files.get(0);
+
+        return this.loadAsResource(toGet.getAbsolutePath());
     }
 
 

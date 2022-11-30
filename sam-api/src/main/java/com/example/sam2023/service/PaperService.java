@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
+import org.springframework.core.io.Resource;
 import org.springframework.http.codec.ClientCodecConfigurer.MultipartCodecs;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,12 +30,10 @@ public class PaperService {
         return null;
     }
     public Paper getPaperById(int paperId){
-        return null;
+        return this.paperDAO.get(paperId);
     }
-    public boolean createNewPaper(int submittorId,MultipartFile file){
-        return false;
-    }
-    public boolean updatePaper(int paperID){
+    
+    public boolean updatePaper(Paper paper){
         return false;
     }
     public Paper[] getAllSubmittorPapers( int id){
@@ -42,8 +41,8 @@ public class PaperService {
         return allPapers;
     }
 
-    public void storePhysicalPaper(MultipartFile file, int submittorId, DirectoryEnum en) throws IOException{
-        String path = DirectoryEnum.makePaperFolderPath(en, submittorId);
+    public void storePhysicalPaper(int id, DirectoryEnum en, MultipartFile file) throws IOException{
+        String path = DirectoryEnum.makePaperFolderPath(en, id);
         if(this.fileStorage.dirExists(path)){
             this.fileStorage.clearDirectory(path);
         }
@@ -53,6 +52,11 @@ public class PaperService {
 
         this.fileStorage.store(file, path);
         this.fileStorage.makeDir(path+"/Reviews");
+    }
+
+    public Resource getPhysicalPaper(int id, DirectoryEnum en) throws IOException{
+        String path = DirectoryEnum.makePaperFolderPath(en, id);
+        return this.fileStorage.getFile(path, "Reviews");
     }
 
 

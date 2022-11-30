@@ -33,17 +33,11 @@ public class TestController {
         this.paperService = paperService;
     }
 
-    @PostMapping("/")
-    public ResponseEntity<String> handleUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes){
+    @PostMapping("/files/{id}")
+    public ResponseEntity<String> handleUpload(@RequestParam("file") MultipartFile file, @PathVariable int id, RedirectAttributes redirectAttributes){
         try {
-            // this.fileStorage.makeDir(DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34");
-            // this.fileStorage.store(file, DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34");
-            // System.out.println(this.fileStorage.dirExists(DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34"));
-            // this.fileStorage.clearDirectory(DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34");
-            // System.out.println(this.fileStorage.dirExists(DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34"));
-            
 
-            this.paperService.storePhysicalPaper(file, 34, DirectoryEnum.SUBMITTOR_PAPERS);
+            this.paperService.storePhysicalPaper(id, DirectoryEnum.SUBMITTOR_PAPERS, file);
             return new ResponseEntity<>("success" ,HttpStatus.OK);
 
         } catch (IOException e) {
@@ -64,6 +58,17 @@ public class TestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         
+    }
+
+    @GetMapping("/file/{id}")
+    public ResponseEntity<Resource> checkcheck(@PathVariable int id){
+        try{
+            Resource file = this.paperService.getPhysicalPaper(id, DirectoryEnum.SUBMITTOR_PAPERS);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "file: "+file.getFilename()).body(file);
+        }catch(IOException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     
