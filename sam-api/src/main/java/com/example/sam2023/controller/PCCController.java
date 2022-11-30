@@ -26,7 +26,7 @@ public class PCCController {
 
     private PaperService paperService;
 
-    @GetMapping("AllPapers/{id}")
+    @GetMapping("allPapers/{id}")
     public ResponseEntity<List<Paper>> getAllPapers(@PathVariable int id) {
         // LOG.log( "GET /AllPapers {0}", id);
         try {
