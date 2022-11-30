@@ -42,8 +42,8 @@ public class PaperService {
         return allPapers;
     }
 
-    public void storeSubmittorPaper(MultipartFile file, int submittorId) throws IOException{
-        String path = DirectoryEnum.makePaperFolderPath(DirectoryEnum.SUBMITTOR_PAPERS, submittorId);
+    public void storePhysicalPaper(MultipartFile file, int submittorId, DirectoryEnum en) throws IOException{
+        String path = DirectoryEnum.makePaperFolderPath(en, submittorId);
         if(this.fileStorage.dirExists(path)){
             this.fileStorage.clearDirectory(path);
         }
@@ -52,6 +52,7 @@ public class PaperService {
         }
 
         this.fileStorage.store(file, path);
+        this.fileStorage.makeDir(path+"/Reviews");
     }
 
 

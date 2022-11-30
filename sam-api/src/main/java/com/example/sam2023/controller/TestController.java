@@ -43,7 +43,7 @@ public class TestController {
             // System.out.println(this.fileStorage.dirExists(DirectoryEnum.SUBMITTOR_PAPERS.getPath()+"/Paper_34"));
             
 
-            this.paperService.storeSubmittorPaper(file, 34);
+            this.paperService.storePhysicalPaper(file, 34, DirectoryEnum.SUBMITTOR_PAPERS);
             return new ResponseEntity<>("success" ,HttpStatus.OK);
 
         } catch (IOException e) {
