@@ -25,7 +25,12 @@ public class PCMController {
     @PostMapping("/authenticate")
     public ResponseEntity<PCM> authenticate(@RequestBody UserCredential u){
         PCM response = (PCM)this.pcmService.authenticateUser(u);
-        return new ResponseEntity<PCM>(response, HttpStatus.OK);
+        if(response != null){
+            return new ResponseEntity<PCM>(response, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
     
 }
