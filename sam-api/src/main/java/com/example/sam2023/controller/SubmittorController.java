@@ -21,6 +21,7 @@ import java.util.logging.Level;
 
 import com.example.sam2023.model.Paper;
 import com.example.sam2023.model.Submittor;
+import com.example.sam2023.model.UserCredential;
 import com.example.sam2023.persistance.dao.PaperDAO;
 import com.example.sam2023.persistance.dao.SubmittorDAO;
 import com.example.sam2023.persistance.filestorageSystem.DirectoryEnum;
@@ -49,6 +50,13 @@ public class SubmittorController {
         this.paperDAO = paperDAO;
     }
 
+
+    @PostMapping("submittor")
+    public ResponseEntity<Submittor> authenticate(@RequestBody UserCredential u){
+        Submittor resp = this.submittorDAO.authenticateUser(u);
+        return new ResponseEntity<Submittor>(resp, HttpStatus.OK);
+    }
+    
     @GetMapping("submittor/{id}")
     public ResponseEntity<Submittor> getSubmittorById(@PathVariable int id) {
         // LOG.log( "GET /Submittor {0}", id);

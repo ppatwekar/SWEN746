@@ -12,16 +12,7 @@ public class PCMService extends AbstractUserServices<PCMDAO> {
         super(pcmdao);
     }
 
-    @Override
-    public void receiveNotification(int id, Message message) {
-        // TODO Auto-generated method stub
-        
-    }
 
-    @Override
-    public boolean authenticateUser(UserCredential u) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+
     
 }
