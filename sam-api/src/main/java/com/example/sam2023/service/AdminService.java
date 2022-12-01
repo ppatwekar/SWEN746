@@ -7,19 +7,16 @@ import com.example.sam2023.persistance.dao.AdminDAO;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminService implements UserServices{
-    private AdminDAO adminDAO;
+public class AdminService extends AbstractUserServices<AdminDAO>{
+
+    public AdminService(AdminDAO adminDAO){
+        super(adminDAO);
+    }
 
     @Override
     public void receiveNotification(int id, Message message) {
         // TODO Auto-generated method stub
         
-    }
-
-    @Override
-    public boolean authenticateUser(UserCredential u) {
-        // TODO Auto-generated method stub
-        return false;
     }
     
 }

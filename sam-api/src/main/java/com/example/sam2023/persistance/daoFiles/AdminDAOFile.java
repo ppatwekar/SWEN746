@@ -27,4 +27,5 @@ public class AdminDAOFile extends AbstractUserDAOFile<Admin> implements AdminDAO
         return data;
     }
     
+
 }

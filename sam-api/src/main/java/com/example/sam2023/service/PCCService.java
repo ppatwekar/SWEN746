@@ -6,19 +6,15 @@ import com.example.sam2023.persistance.dao.PCCDAO;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PCCService implements UserServices{
-    private PCCDAO pccdao;
+public class PCCService extends AbstractUserServices<PCCDAO>{
+    public PCCService(PCCDAO pccdao){
+        super(pccdao);
+    }
 
     @Override
     public void receiveNotification(int id, Message message) {
         // TODO Auto-generated method stub
         
-    }
-
-    @Override
-    public boolean authenticateUser(UserCredential u) {
-        // TODO Auto-generated method stub
-        return false;
     }
 
     public boolean setRatings(int reviewId) {

@@ -1,6 +1,7 @@
 package com.example.sam2023.persistance.daoFiles;
 
 import com.example.sam2023.model.Paper;
+import com.example.sam2023.model.UserCredential;
 import com.example.sam2023.persistance.dao.PaperDAO;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
@@ -26,6 +27,7 @@ public class PaperDAOFile extends AbstractDAOFile<Paper> implements PaperDAO{
         Paper[] data = this.objectMapper.readValue(new File(this.filename), Paper[].class);
         return data;
     }
+
 
     //
 }

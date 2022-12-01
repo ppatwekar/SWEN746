@@ -15,23 +15,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class SubmittorService implements UserServices{
-    private SubmittorDAO submittorDAO;
+public class SubmittorService extends AbstractUserServices<SubmittorDAO>{
     private PaperService paperService;
 
     public SubmittorService(SubmittorDAO submittorDAO, PaperService paperService) {
-        this.submittorDAO = submittorDAO;
+        super(submittorDAO);
         this.paperService = paperService;
     }
 
 
     public SubmittorDAO getSubmittorDAO() {
-        return submittorDAO;
+        return dao;
     }
 
 
     public void setSubmittorDAO(SubmittorDAO submittorDAO) {
-        this.submittorDAO = submittorDAO;
+        this.dao = submittorDAO;
     }
 
 
@@ -53,20 +52,15 @@ public class SubmittorService implements UserServices{
         
     }
 
-    @Override
-    public boolean authenticateUser(UserCredential u) {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
     public boolean addPaperSubmission(int submittorId, int paperId) {
-        Submittor s =submittorDAO.get(submittorId);
+        Submittor s =dao.get(submittorId);
         Collection<Integer> papersSubmitted=s.getPapersSubmitted();
         papersSubmitted.add(paperId);
         s.setPapersSubmitted(papersSubmitted);
 
         try {
-            submittorDAO.update(s);
+            dao.update(s);
             return true;
 
         } catch (Exception e) {
@@ -87,7 +81,7 @@ public class SubmittorService implements UserServices{
     }
 
     public Paper[] getAllPapers(int id) {
-        Submittor submittor = this.submittorDAO.get(id);
+        Submittor submittor = this.dao.get(id);
         Collection<Integer> papers = submittor.getPapersSubmitted();
         Collection<Paper> lstPapers = new ArrayList<>();
 
@@ -102,7 +96,7 @@ public class SubmittorService implements UserServices{
 
     public boolean checkIfSubmittorHasPaper(int paperId,int submittorId) {
         // TODO Auto-generated method stub
-        Submittor s =submittorDAO.get(submittorId);
+        Submittor s =dao.get(submittorId);
         Collection<Integer> papersSubmitted=s.getPapersSubmitted();
         for (Integer id : papersSubmitted) {
             if(id==paperId)

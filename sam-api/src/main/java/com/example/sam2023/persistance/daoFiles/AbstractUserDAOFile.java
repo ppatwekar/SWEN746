@@ -2,9 +2,10 @@ package com.example.sam2023.persistance.daoFiles;
 
 import com.example.sam2023.model.AbstractUser;
 import com.example.sam2023.model.UserCredential;
+import com.example.sam2023.persistance.dao.UserDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public abstract class AbstractUserDAOFile<T extends AbstractUser> extends AbstractDAOFile<T>{
+public abstract class AbstractUserDAOFile<T extends AbstractUser> extends AbstractDAOFile<T> implements UserDAO<T>{
     public AbstractUserDAOFile(ObjectMapper objectMapper, String filename) {
         super(objectMapper, filename);
     }

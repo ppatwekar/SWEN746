@@ -6,8 +6,11 @@ import com.example.sam2023.persistance.dao.PCMDAO;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PCMService implements UserServices {
-    private PCMDAO pcmdao;
+public class PCMService extends AbstractUserServices<PCMDAO> {
+
+    public PCMService(PCMDAO pcmdao){
+        super(pcmdao);
+    }
 
     @Override
     public void receiveNotification(int id, Message message) {
