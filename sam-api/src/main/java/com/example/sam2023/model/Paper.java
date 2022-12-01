@@ -2,16 +2,20 @@ package com.example.sam2023.model;
 
 import java.util.Collection;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Paper extends AbstractIdFile{
     private Collection<Integer> reviewIds;
     private int submittorId;
-    public Paper(@JsonProperty("id") int id, @JsonProperty("reviewIds") Collection<Integer> reviewIds,  @JsonProperty("submittorId") int submittorId) {
+
+    public Paper(@JsonProperty("id")int id, @JsonProperty("reviewIds") Collection<Integer> reviewIds,@JsonProperty("submittorId")  int submittorId, @JsonProperty("file")  MultipartFile file) {
         super(id);
         this.reviewIds = reviewIds;
         this.submittorId = submittorId;
     }
+
     public Collection<Integer> getReviewIds() {
         return reviewIds;
     }
@@ -24,6 +28,7 @@ public class Paper extends AbstractIdFile{
     public void setSubmittorId(int submittorId) {
         this.submittorId = submittorId;
     }
+
 
 
 }

@@ -31,67 +31,67 @@ public class PCCController {
 
     private PaperService paperService;
 
-    @GetMapping("allPapers")
-    public ResponseEntity<Paper[]> getAllPapers() {
+    // @GetMapping("allPapers")
+    // public ResponseEntity<Paper[]> getAllPapers() {
         
-        try {
-            Paper[] papers = paperService.getAllPapers();
-            if (papers != null)
-                return new ResponseEntity<>(papers, HttpStatus.OK);
-            else
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //     try {
+    //         Paper[] papers = paperService.getAllPapers();
+    //         if (papers != null)
+    //             return new ResponseEntity<>(papers, HttpStatus.OK);
+    //         else
+    //             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        } catch (Exception ex) {
-            LOG.log(Level.SEVERE, ex.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    //     } catch (Exception ex) {
+    //         LOG.log(Level.SEVERE, ex.getLocalizedMessage());
+    //         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 
-    @PostMapping("pcc/assignPaper")
-    public ResponseEntity<Integer> assignPaper(@RequestBody int paperId, @RequestBody int pcmId) {
-        try {
-            Collection<Integer> preferences = pcmservice.getRequestedPaper(pcmId); //get PCM preferences
+    // @PostMapping("pcc/assignPaper")
+    // public ResponseEntity<Integer> assignPaper(@RequestBody int paperId, @RequestBody int pcmId) {
+    //     try {
+    //         // Collection<Integer> preferences = pcmservice.getRequestedPaper(pcmId); //get PCM preferences
 
-            //Paper paperInner = paperDAO.create(paper);// maybe do in paper service
-            //boolean submittorUpdated=submittorService.addPaperSubmission(paperInner.getSubmittorId(), paperInner.getId(), null);
+    //         //Paper paperInner = paperDAO.create(paper);// maybe do in paper service
+    //         //boolean submittorUpdated=submittorService.addPaperSubmission(paperInner.getSubmittorId(), paperInner.getId(), null);
 
-            // if (paperInner != null && submittorUpdated)
-            //     return new ResponseEntity<>(paperInner, HttpStatus.CREATED);
-            // else
-            //     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //         // if (paperInner != null && submittorUpdated)
+    //         //     return new ResponseEntity<>(paperInner, HttpStatus.CREATED);
+    //         // else
+    //         //     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        }
-        catch(Exception e){
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return null;
-    }
+    //     }
+    //     catch(Exception e){
+    //         LOG.log(Level.SEVERE, e.getLocalizedMessage());
+    //         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    //     return null;
+    // }
 
-    @PostMapping("pcc/setRating")
-    public ResponseEntity<Integer> setRating(@RequestBody int reviewId) {
-        try {
+    // @PostMapping("pcc/setRating")
+    // public ResponseEntity<Integer> setRating(@RequestBody int reviewId) {
+    //     try {
             
-            //TO DO: set ratings to reviews.
+    //         //TO DO: set ratings to reviews.
 
-        }
-        catch(Exception e){
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return null;
-    }
+    //     }
+    //     catch(Exception e){
+    //         LOG.log(Level.SEVERE, e.getLocalizedMessage());
+    //         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    //     return null;
+    // }
 
-    @PostMapping("pcc/setRating")
-    public ResponseEntity<Integer> generateReport(@RequestBody int reviewId) {
-        try {
+    // @PostMapping("pcc/setRating")
+    // public ResponseEntity<Integer> generateReport(@RequestBody int reviewId) {
+    //     try {
             
-            //TO DO: add report to reports.json.
-        }
-        catch(Exception e){
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return null;
-    }
+    //         //TO DO: add report to reports.json.
+    //     }
+    //     catch(Exception e){
+    //         LOG.log(Level.SEVERE, e.getLocalizedMessage());
+    //         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    //     return null;
+    // }
 }

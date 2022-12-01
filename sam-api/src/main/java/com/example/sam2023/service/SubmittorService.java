@@ -5,7 +5,9 @@ import com.example.sam2023.model.Paper;
 import com.example.sam2023.model.Submittor;
 import com.example.sam2023.model.UserCredential;
 import com.example.sam2023.persistance.dao.SubmittorDAO;
+import com.example.sam2023.persistance.filestorageSystem.DirectoryEnum;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -57,17 +59,29 @@ public class SubmittorService implements UserServices{
         return false;
     }
 
-    public boolean addPaperSubmission(int submittorId, int paperId,MultipartFile file) {
-        // TODO Auto-generated method stub
+    public boolean addPaperSubmission(int submittorId, int paperId) {
         Submittor s =submittorDAO.get(submittorId);
         Collection<Integer> papersSubmitted=s.getPapersSubmitted();
         papersSubmitted.add(paperId);
         s.setPapersSubmitted(papersSubmitted);
+
         try {
             submittorDAO.update(s);
             return true;
 
         } catch (Exception e) {
+            return false;
+        }
+    }
+    public boolean addPaperFile(int id,MultipartFile file) {
+
+        DirectoryEnum en= DirectoryEnum.SUBMITTOR_PAPERS;
+        try {
+            paperService.storePhysicalPaper(id, en, file);
+            return true;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
             return false;
         }
     }
