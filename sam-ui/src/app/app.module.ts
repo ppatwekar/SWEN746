@@ -10,7 +10,17 @@ import { PCMPortalComponent } from './pcmportal/pcmportal.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {MatCardModule} from '@angular/material/card';
+import {CheckboxModule} from 'primeng/checkbox';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import { NotificationComponent } from './notification/notification.component';
+import { SubmittorSubmitComponent } from './submittor-submit/submittor-submit.component';
+import { SubmittorPaperReviewComponent } from './submittor-paper-review/submittor-paper-review.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import {HttpClientModule} from '@angular/common/http';
+import { NavbarSubmittorComponent } from './navbar-submittor/navbar-submittor.component';
+import {DropdownModule} from 'primeng/dropdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,12 +29,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PCCPortalComponent,
     PCMPortalComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    NotificationComponent,
+    SubmittorSubmitComponent,
+    SubmittorPaperReviewComponent,
+    NavbarSubmittorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule,
+    CheckboxModule,
+    ButtonModule,
+    InputTextModule,
+    FileUploadModule,
+    HttpClientModule,
+    DropdownModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
