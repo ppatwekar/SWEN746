@@ -73,9 +73,17 @@ public class SubmittorService implements UserServices{
     }
 
     public Paper[] getAllPapers(int id) {
+        Submittor submittor = this.submittorDAO.get(id);
+        Collection<Integer> papers = submittor.getPapersSubmitted();
+        Collection<Paper> lstPapers = new ArrayList<>();
 
-        Paper[] p1=paperService.getAllSubmittorPapers(id);
-        return p1;
+        for(Integer paperId : papers){
+            lstPapers.add(this.paperService.getPaperById(paperId));
+        }
+
+        Paper[] retPapers = new Paper[lstPapers.size()];
+        retPapers = lstPapers.toArray(retPapers);
+        return retPapers;
     }
 
     public boolean checkIfSubmittorHasPaper(int paperId,int submittorId) {

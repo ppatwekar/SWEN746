@@ -36,10 +36,6 @@ public class PaperService {
     public boolean updatePaper(Paper paper){
         return false;
     }
-    public Paper[] getAllSubmittorPapers( int id){
-        Paper[] allPapers = paperDAO.getAllSubmittorPapers(id);
-        return allPapers;
-    }
 
     public void storePhysicalPaper(int id, DirectoryEnum en, MultipartFile file) throws IOException{
         String path = DirectoryEnum.makePaperFolderPath(en, id);
@@ -60,7 +56,9 @@ public class PaperService {
     }
 
     public Paper[] getAllPapers() {
-        Paper[] allPapers = paperDAO.getAllPapers();
+        Collection<Paper> papers = paperDAO.getAll();
+        Paper[] allPapers = new Paper[papers.size()];
+        allPapers = papers.toArray(allPapers);
         return allPapers;
     }
 

@@ -61,7 +61,7 @@ public class SubmittorController {
         // LOG.log( "GET /Submittor {0}", id);
         try {
 
-            Paper[] papers = paperDAO.getAllSubmittorPapers(id);
+            Paper[] papers = submittorService.getAllPapers(id);
             if (papers != null)
                 return new ResponseEntity<>(papers, HttpStatus.OK);
             else
