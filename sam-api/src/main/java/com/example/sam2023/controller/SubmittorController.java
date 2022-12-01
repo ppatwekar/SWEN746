@@ -121,7 +121,7 @@ public class SubmittorController {
         }
     }
 
-    @GetMapping("/file/{id}")
+    @GetMapping("submittor/{id}/downloadPaper")
     public ResponseEntity<Resource> downloadPaper(@PathVariable int id){
         try{
             Resource file = this.paperService.getPhysicalPaper(id, DirectoryEnum.SUBMITTOR_PAPERS);
