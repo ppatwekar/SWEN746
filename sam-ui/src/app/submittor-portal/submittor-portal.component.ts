@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubmitterService } from '../submitter.service';
 import { Paper } from '../paper';
 import { getSafePropertyAccessString } from '@angular/compiler';
+import {saveAs} from 'file-saver';
+
 @Component({
   selector: 'app-submittor-portal',
   templateUrl: './submittor-portal.component.html',
@@ -11,18 +13,32 @@ import { getSafePropertyAccessString } from '@angular/compiler';
 })
 export class SubmittorPortalComponent {
 
-  paper: Paper[]=[];
+  paper: Paper[] = [];
 
-  constructor(private submitterService: SubmitterService,private router: Router){
+  file: any;
+
+  constructor(private submitterService: SubmitterService, private router: Router) {
 
   }
   ngOnInit(): void {
     this.getPaper(11);
-
+    // this.getPaperFiles(11);
   }
-  getPaper(id:number):void {
+  getPaper(id: number): void {
     this.submitterService.getPapers(id)
-    .subscribe((paper) => this.paper = paper);
+      .subscribe((paper) => this.paper = paper);
   }
+  getPaperFiles(id: number): void {
+    this.submitterService.downloadPapers(id).subscribe((res) => {
+      this.file = res
+      console.log(this.file.name);
+      console.log(this.file);
+      saveAs(res, (this.paper[0].name+".pdf"));
+
+    });
+  }
+
+
+
 
 }

@@ -13,58 +13,19 @@
             <div class="grid formgrid p-fluid">
                 <div class="field mb-4 col-12">
                     <label for="nickname" class="font-medium text-900">Name</label>
-                    <input id="nickname" type="text" pInputText>
+                    <input id="nickname" #name id="name" type="text" pInputText>
                 </div>
                 <div class="field mb-4 col-12">
                     <label for="avatar" class="font-medium text-900">Upload file</label>
                     <div class="flex align-items-center">
-                        <p-fileUpload mode="basic" name="avatar" url="./upload.php" accept="image/*"  styleClass="p-button-outlined p-button-plain" chooseLabel="Upload File"></p-fileUpload>
-                        <!-- <p-fileUpload mode="basic" name="avatar" url="./upload.php" accept="image/*" maxFileSize="1000000" styleClass="p-button-outlined p-button-plain" chooseLabel="Upload Image"></p-fileUpload> -->
+                        <!-- <p-fileUpload mode="basic" name="avatar" url="./upload.php" accept="image/*"  styleClass="p-button-outlined p-button-plain" chooseLabel="Upload File"></p-fileUpload> -->
+                        <!-- <p-fileUpload  mode="basic"  (onUpload)="onUpload($event)" styleClass="p-button-outlined p-button-plain" chooseLabel="Upload File"></p-fileUpload> -->
+                        <input type="file" class="file-upload"  (change)="onFileSelected($event)" #fileUpload>
                     </div>
                 </div>
-                <!-- <div class="field mb-4 col-12">
-                    <label for="bio" class="font-medium text-900">Bio</label>
-                    <textarea id="bio" type="text" pInputTextarea rows="5" ></textarea>
-                </div>
-                <div class="field mb-4 col-12 md:col-6">
-                    <label for="email" class="font-medium text-900">Email</label>
-                    <input id="email" type="text" pInputText>
-                </div>
-                <div class="field mb-4 col-12 md:col-6">
-                    <label for="country" class="font-medium text-900">Country</label>
-                    <p-dropdown inputId="country" [options]="countries" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-                        <ng-template let-country pTemplate="item">
-                            <div class="flex align-items-center">
-                                <img src="assets/images/blocks/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + country.code.toLowerCase()" style="width:18px"/>
-                                <div>{{country.name}}</div>
-                            </div>
-                        </ng-template>
-                    </p-dropdown>
-                </div>
-                <div class="field mb-4 col-12 md:col-6">
-                    <label for="city" class="font-medium text-900">City</label>
-                    <input id="city" type="text" pInputText>
-                </div>
-                <div class="field mb-4 col-12 md:col-6">
-                    <label for="state" class="font-medium text-900">State</label>
-                    <input id="state" type="text" pInputText>
-                </div>
-                <div class="field mb-4 col-12">
-                    <label for="website" class="font-medium text-900">Website</label>
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">www</span>
-                        <input id="website" type="text" pInputText>
-                    </div>
-                </div>
-                <div class="field mb-4 col-12">
-                    <label for="privacy" class="font-medium text-900">Privacy</label>
-                    <div class="flex align-items-center">
-                        <p-checkbox inputId="privacy" [binary]="true"></p-checkbox>
-                        <span class="ml-2 text-900">Share my data with contacts</span>
-                    </div>
-                </div> -->
+
                 <div class="col-12">
-                    <button pButton pRipple label="Save Changes" class="w-auto mt-3"></button>
+                    <button pButton pRipple label="Save Changes" (click)="uploadPaper(name.value)" class="w-auto mt-3"></button>
                 </div>
             </div>
         </div>
