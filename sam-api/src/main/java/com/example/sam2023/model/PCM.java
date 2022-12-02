@@ -13,4 +13,8 @@ public class PCM extends AbstractUser{
         super(id, email, password);
         this.pcmPaperPreferences = pcmPaperPreferences;
     }
+
+    public void setPaperPreferences(Collection<Integer> paperPreferences){
+        this.pcmPaperPreferences = paperPreferences;
+    }
 }

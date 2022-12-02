@@ -5,6 +5,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,7 @@ import com.example.sam2023.service.SubmittorService;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("submittor")
 public class SubmittorController {
     private static final Logger LOG = Logger.getLogger(SubmittorController.class.getName());
     private SubmittorDAO submittorDAO;
@@ -62,7 +63,7 @@ public class SubmittorController {
         }
     }
     
-    @GetMapping("submittor/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Submittor> getSubmittorById(@PathVariable int id) {
         // LOG.log( "GET /Submittor {0}", id);
         try {
@@ -78,14 +79,16 @@ public class SubmittorController {
         }
     }
 
-    @GetMapping("submittor/{id}/papers")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{id}/papers")
     public ResponseEntity<Paper[]> getAllPapers(@PathVariable int id) {
         // LOG.log( "GET /Submittor {0}", id);
+        System.out.println("Request received!!");
         try {
 
             Paper[] papers = submittorService.getAllPapers(id);
             if (papers != null)
-                return new ResponseEntity<>(papers, HttpStatus.OK);
+                return new ResponseEntity<Paper[]>(papers, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -95,7 +98,7 @@ public class SubmittorController {
         }
     }
 
-    @PostMapping("submittor/addPaperInfo")
+    @PostMapping("/addPaperInfo")
     public ResponseEntity<Paper> addPaperInfo(@RequestBody Paper paper) {
         // LOG.log( "GET /Submittor {0}", id);
         try {
@@ -113,7 +116,7 @@ public class SubmittorController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("submittor/{id}/addPaperFile")
+    @PostMapping("/{id}/addPaperFile")
     public UploadFileResponse addPaperFile(@PathVariable int id, @RequestParam("file") MultipartFile file) {
         // LOG.log( "GET /Submittor {0}", id);
         try {
@@ -134,7 +137,7 @@ public class SubmittorController {
         }
     }
 
-    @GetMapping("submittor/{id}/downloadPaper")
+    @GetMapping("/{id}/downloadPaper")
     public ResponseEntity<Resource> downloadPaper(@PathVariable int id){
         try{
             Resource file = this.paperService.getPhysicalPaper(id, DirectoryEnum.SUBMITTOR_PAPERS);
@@ -145,7 +148,7 @@ public class SubmittorController {
         }
     }
 
-    @PutMapping("submittor/updatePaper")
+    @PutMapping("/updatePaper")
     public ResponseEntity<Paper> updatePaper(@RequestBody Paper paper) {
         // LOG.log( "GET /Submittor {0}", id);
         try {

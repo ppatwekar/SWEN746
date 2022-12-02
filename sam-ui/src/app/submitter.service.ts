@@ -9,7 +9,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 export class SubmitterService {
   
-  private submitterUrl = 'http://localhost:8080/submittor/';
+  private submitterUrl = 'http://localhost:8080/submittor';
   constructor(
     private http: HttpClient,
   ) { }
@@ -19,7 +19,8 @@ export class SubmitterService {
 
 
   getPapers(id: number): Observable<any> {
-    return this.http.get<Paper[]>(this.submitterUrl + id+"/papers", this.httpOptions).pipe(
+    console.log("Sending request");
+    return this.http.get<Paper[]>(this.submitterUrl +"/"+ id+"/papers").pipe(
       catchError(this.handleError<Paper[]>('getpapers', []))
     );
   }
