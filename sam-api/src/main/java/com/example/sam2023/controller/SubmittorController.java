@@ -52,6 +52,7 @@ public class SubmittorController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/submittorAuth")
     public ResponseEntity<Submittor> authenticate(@RequestBody UserCredential u){
         Submittor resp = this.submittorDAO.authenticateUser(u);
@@ -62,7 +63,7 @@ public class SubmittorController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<Submittor> getSubmittorById(@PathVariable int id) {
         // LOG.log( "GET /Submittor {0}", id);
@@ -98,6 +99,7 @@ public class SubmittorController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/addPaperInfo")
     public ResponseEntity<Paper> addPaperInfo(@RequestBody Paper paper) {
         // LOG.log( "GET /Submittor {0}", id);
@@ -116,6 +118,7 @@ public class SubmittorController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/{id}/addPaperFile")
     public UploadFileResponse addPaperFile(@PathVariable int id, @RequestParam("file") MultipartFile file) {
         // LOG.log( "GET /Submittor {0}", id);
@@ -136,7 +139,7 @@ public class SubmittorController {
             // return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}/downloadPaper")
     public ResponseEntity<Resource> downloadPaper(@PathVariable int id){
         try{
@@ -148,6 +151,7 @@ public class SubmittorController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/updatePaper")
     public ResponseEntity<Paper> updatePaper(@RequestBody Paper paper) {
         // LOG.log( "GET /Submittor {0}", id);

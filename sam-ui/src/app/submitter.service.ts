@@ -24,6 +24,14 @@ export class SubmitterService {
       catchError(this.handleError<Paper[]>('getpapers', []))
     );
   }
+  downloadPapers(id: number): Observable<any> {
+    console.log("Sending request");
+    return this.http.get<Paper[]>(this.submitterUrl +"/"+ id+"/papers").pipe(
+      catchError(this.handleError<Paper[]>('getpapers', []))
+    );
+  }
+
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
