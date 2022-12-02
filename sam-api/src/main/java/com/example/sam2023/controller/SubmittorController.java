@@ -41,7 +41,6 @@ public class SubmittorController {
     private SubmittorService submittorService;
     private PaperService paperService;
     private PaperDAO paperDAO;
-    private FileStorage fileStorage;
 
     public SubmittorController(SubmittorDAO submittorDAO, SubmittorService submittorService, PaperService paperService,
             PaperDAO paperDAO) {
@@ -70,7 +69,7 @@ public class SubmittorController {
 
             Submittor sub = submittorDAO.get(id);
             if (sub != null)
-                return new ResponseEntity<>(sub, HttpStatus.OK);
+                return new ResponseEntity<Submittor>(sub, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
@@ -107,7 +106,7 @@ public class SubmittorController {
             boolean submittorUpdated=submittorService.addPaperSubmission(paperInner.getSubmittorId(), paperInner.getId());
 
             if (paperInner != null && submittorUpdated)
-                return new ResponseEntity<>(paperInner, HttpStatus.CREATED);
+                return new ResponseEntity<Paper>(paperInner, HttpStatus.CREATED);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -156,7 +155,7 @@ public class SubmittorController {
             if (submittorService.checkIfSubmittorHasPaper(paper.getId(),paper.getSubmittorId())  ) {
                 Paper paperInner = paperDAO.update(paper);// maybe do in paper service
                 if (paperInner != null)
-                    return new ResponseEntity<>(paperInner, HttpStatus.CREATED);
+                    return new ResponseEntity<Paper>(paperInner, HttpStatus.CREATED);
                 else
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
