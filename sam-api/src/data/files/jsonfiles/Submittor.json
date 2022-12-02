@@ -1,13 +1,13 @@
 [{
   "id": 1,
   "name": "Mr. NotNice",
-  "papersSubmitted": [2, 3, 6, 0, 0, 0, 13, 14],
+  "papersSubmitted": [2],
   "email": "bad@nice.com",
   "password": "scott"
 }, {
   "id": 11,
   "name": "Mr. Nice",
-  "papersSubmitted": [1, 4, 5, 7, 0],
+  "papersSubmitted": [1],
   "email": "nice@nice.com",
   "password": "nice"
 }]

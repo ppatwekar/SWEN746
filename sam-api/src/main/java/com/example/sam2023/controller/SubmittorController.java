@@ -51,7 +51,7 @@ public class SubmittorController {
     }
 
 
-    @PostMapping("submittor")
+    @PostMapping("/submittorAuth")
     public ResponseEntity<Submittor> authenticate(@RequestBody UserCredential u){
         Submittor resp = this.submittorDAO.authenticateUser(u);
         return new ResponseEntity<Submittor>(resp, HttpStatus.OK);

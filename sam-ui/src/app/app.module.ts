@@ -21,6 +21,9 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import { NavbarSubmittorComponent } from './navbar-submittor/navbar-submittor.component';
 import {DropdownModule} from 'primeng/dropdown';
+import { MessageComponent } from './message/message.component';
+import {TieredMenuModule} from 'primeng/tieredmenu';
+import {MenuItem} from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +36,8 @@ import {DropdownModule} from 'primeng/dropdown';
     NotificationComponent,
     SubmittorSubmitComponent,
     SubmittorPaperReviewComponent,
-    NavbarSubmittorComponent
+    NavbarSubmittorComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ import {DropdownModule} from 'primeng/dropdown';
     InputTextModule,
     FileUploadModule,
     HttpClientModule,
-    DropdownModule
+    DropdownModule,
+    TieredMenuModule,
+    
 
   ],
   providers: [],

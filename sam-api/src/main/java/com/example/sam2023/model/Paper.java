@@ -9,11 +9,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Paper extends AbstractIdFile{
     private Collection<Integer> reviewIds;
     private int submittorId;
+    private String name;
 
-    public Paper(@JsonProperty("id")int id, @JsonProperty("reviewIds") Collection<Integer> reviewIds,@JsonProperty("submittorId")  int submittorId, @JsonProperty("file")  MultipartFile file) {
+
+
+    public Paper(@JsonProperty("id")int id, @JsonProperty("reviewIds") Collection<Integer> reviewIds,@JsonProperty("submittorId")  int submittorId, @JsonProperty("name")  String name) {
         super(id);
         this.reviewIds = reviewIds;
         this.submittorId = submittorId;
+        this.name=name;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Collection<Integer> getReviewIds() {
