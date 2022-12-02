@@ -32,6 +32,7 @@ export class SubmitterService {
         
     formData.append("file", file);
 
+
     return this.http.post<any>(this.submitterUrl +"/"+ id+"/addPaperFile",formData).pipe(
       catchError(this.handleError<any>('upload', []))
     );
@@ -59,7 +60,11 @@ export class SubmitterService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
-  
+
+    getId(){
+      return <number><unknown>sessionStorage.getItem("userId");
+    }
+
 }
 
 }

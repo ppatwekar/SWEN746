@@ -24,6 +24,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import { MessageComponent } from './message/message.component';
 import {TieredMenuModule} from 'primeng/tieredmenu';
 import {MenuItem} from 'primeng/api';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,7 @@ import {MenuItem} from 'primeng/api';
     HttpClientModule,
     DropdownModule,
     TieredMenuModule,
-    
+    FormsModule
 
   ],
   providers: [],
