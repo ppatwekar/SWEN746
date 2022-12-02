@@ -1,7 +1,9 @@
 package com.example.sam2023.controller;
 
+import com.example.sam2023.model.PCC;
 import com.example.sam2023.model.Paper;
 import com.example.sam2023.model.Submittor;
+import com.example.sam2023.model.UserCredential;
 import com.example.sam2023.persistance.dao.PaperDAO;
 import com.example.sam2023.persistance.daoFiles.PaperDAOFile;
 import com.example.sam2023.service.PCCService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -22,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
+@RequestMapping("pcc")
 public class PCCController {
     private static final Logger LOG = Logger.getLogger(PCCController.class.getName());
 
@@ -30,6 +34,21 @@ public class PCCController {
     private PaperDAO paperDAO;
 
     private PaperService paperService;
+
+    public PCCController(PCCService pccService){
+        this.pccService = pccService;
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<PCC> authenticate(@RequestBody UserCredential u){
+        PCC pcc = (PCC)this.pccService.authenticateUser(u);
+        if(pcc != null){
+            return new ResponseEntity<PCC>(pcc, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     // @GetMapping("allPapers")
     // public ResponseEntity<Paper[]> getAllPapers() {
