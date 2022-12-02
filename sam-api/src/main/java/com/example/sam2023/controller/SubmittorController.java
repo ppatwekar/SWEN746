@@ -50,6 +50,29 @@ public class SubmittorController {
         this.paperDAO = paperDAO;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")  
+    @PutMapping("/updatePaper")
+    public ResponseEntity<Paper> updatePaper(@RequestBody Paper paper) {
+        // LOG.log( "GET /Submittor {0}", id);
+        try {
+
+            if (submittorService.checkIfSubmittorHasPaper(paper.getId(),paper.getSubmittorId())  ) {
+                Paper paperInner = paperDAO.update(paper);// maybe do in paper service
+                if (paperInner != null)
+                    return new ResponseEntity<Paper>(paperInner, HttpStatus.CREATED);
+                else
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            } else {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+            }
+
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/authenticate")
@@ -62,22 +85,7 @@ public class SubmittorController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/{id}")
-    public ResponseEntity<Submittor> getSubmittorById(@PathVariable int id) {
-        // LOG.log( "GET /Submittor {0}", id);
-        try {
 
-            Submittor sub = submittorDAO.get(id);
-            if (sub != null)
-                return new ResponseEntity<Submittor>(sub, HttpStatus.OK);
-            else
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (Exception ex) {
-            LOG.log(Level.SEVERE, ex.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}/papers")
@@ -149,28 +157,23 @@ public class SubmittorController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     @CrossOrigin(origins = "http://localhost:4200")
-    @PutMapping("/updatePaper")
-    public ResponseEntity<Paper> updatePaper(@RequestBody Paper paper) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Submittor> getSubmittorById(@PathVariable int id) {
         // LOG.log( "GET /Submittor {0}", id);
         try {
 
-            if (submittorService.checkIfSubmittorHasPaper(paper.getId(),paper.getSubmittorId())  ) {
-                Paper paperInner = paperDAO.update(paper);// maybe do in paper service
-                if (paperInner != null)
-                    return new ResponseEntity<Paper>(paperInner, HttpStatus.CREATED);
-                else
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-            } else {
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-
-            }
-
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            Submittor sub = submittorDAO.get(id);
+            if (sub != null)
+                return new ResponseEntity<Submittor>(sub, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, ex.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+
 }

@@ -1,11 +1,11 @@
 [{
     "id": 1,
     "name": "paper1",
-    "reviewIds": [12, 13, 3],
+    "reviewIds": 21,
     "submittorId": 1
 }, {
     "id": 2,
-    "name": "paper1",
-    "reviewIds": [12, 13, 3],
+    "name": "paperOnModeling",
+    "reviewIds": 331,
     "submittorId": 11
 }]

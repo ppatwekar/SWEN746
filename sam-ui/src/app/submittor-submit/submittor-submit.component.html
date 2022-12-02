@@ -23,7 +23,9 @@
                         <input type="file" class="file-upload"  (change)="onFileSelected($event)" #fileUpload>
                     </div>
                 </div>
-
+                <div class="container" *ngIf="loading">
+                    <h3>Loading ...</h3>
+                </div>
                 <div class="col-12">
                     <button pButton pRipple label="Save Changes" (click)="uploadPaper(name.value)" class="w-auto mt-3"></button>
                 </div>

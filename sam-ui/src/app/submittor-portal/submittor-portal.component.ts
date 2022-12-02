@@ -14,14 +14,16 @@ import {saveAs} from 'file-saver';
 export class SubmittorPortalComponent {
 
   paper: Paper[] = [];
-
+  id!: number;
   file: any;
 
   constructor(private submitterService: SubmitterService, private router: Router) {
 
   }
   ngOnInit(): void {
-    this.getPaper(11);
+    this.id = this.submitterService.getId()
+    console.log(this.id)
+    this.getPaper(this.id);
     // this.getPaperFiles(11);
   }
   getPaper(id: number): void {

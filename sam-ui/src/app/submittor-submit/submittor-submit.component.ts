@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubmitterService } from '../submitter.service';
 import { Paper } from '../paper';
 import { Observable, Subject } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-submittor-submit',
   templateUrl: './submittor-submit.component.html',
@@ -17,11 +18,14 @@ export class SubmittorSubmitComponent {
 fileName=""
   name: string = "";
   p!: Paper;
+  id!: number;
+
   constructor(private submitterService: SubmitterService,private router: Router){
 
   }
   ngOnInit(): void {
-    
+    this.id = this.submitterService.getId()
+
 
   }
 
@@ -42,13 +46,18 @@ onFileSelected(event: any) {
 }
 
   uploadPaper(name:string):void {
-    this.submitterService.getPapers(11)
-    .subscribe((paper) => this.p = paper);
-    this.p.name = name
-    this.submitterService.updatePaper(this.p).subscribe((paper) => this.p = paper);
+    this.submitterService.getPapers(this.id)
+    .subscribe((paper) => {this.p = paper
+      console.log("hereeeeeeeeeeee")
+      console.log(paper)
+      this.p.name = name
+      this.submitterService.updatePaper(this.p,).subscribe((paper) => this.p = paper);
+    
+    });
+
     this.loading = !this.loading;
     console.log(this.file);
-    this.submitterService.uploadPapers(11,this.file)
+    this.submitterService.uploadPapers(this.id,this.file)
     .subscribe((event: any) => {
       if (typeof (event) === 'object') {
 

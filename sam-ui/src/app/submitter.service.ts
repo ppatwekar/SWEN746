@@ -13,10 +13,12 @@ export class SubmitterService {
   constructor(
     private http: HttpClient,
   ) { }
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/pdf' })
-  };
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json',
+    'Accept': 'application/json'})
+  };
+  id!: number;
 
   getPapers(id: number): Observable<any> {
     console.log("Sending request");
@@ -45,7 +47,7 @@ export class SubmitterService {
     );
   }
   updatePaper(p:Paper): Observable<any>{
-    return this.http.post<any>(this.submitterUrl +"/updatePaper",p).pipe(
+    return this.http.put<any>(this.submitterUrl +"/updatePaper",p,this.httpOptions).pipe(
       catchError(this.handleError<any>('upload', []))
     );
   }
@@ -61,10 +63,13 @@ export class SubmitterService {
       return of(result as T);
     };
 
-    getId(){
-      return <number><unknown>sessionStorage.getItem("userId");
-    }
-
+}
+getId(){
+  console.log(sessionStorage.getItem("userId"))
+  // @ts-ignore
+  this.id = parseInt( sessionStorage.getItem("userId"));
+  return this.id;
+  
 }
 
 }

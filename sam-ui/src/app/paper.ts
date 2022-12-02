@@ -1,7 +1,7 @@
 export interface Paper {
     id:number,
     name:string,
-    reviewsIds:number[],
+    reviewsIds:number,
     submittorId:number
 
 }
