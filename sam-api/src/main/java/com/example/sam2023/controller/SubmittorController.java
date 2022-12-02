@@ -52,7 +52,7 @@ public class SubmittorController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/submittorAuth")
+    @PostMapping("/authenticate")
     public ResponseEntity<Submittor> authenticate(@RequestBody UserCredential u){
         Submittor resp = this.submittorDAO.authenticateUser(u);
         if(resp != null){

@@ -31,6 +31,10 @@ export class SubmitterService {
     );
   }
 
+  getId(){
+    return <number><unknown>sessionStorage.getItem("userId");
+  }
+
 
 
   private handleError<T>(operation = 'operation', result?: T) {
@@ -42,7 +46,9 @@ export class SubmitterService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+
   
+
 }
 
 }
