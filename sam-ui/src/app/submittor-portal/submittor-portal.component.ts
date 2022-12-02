@@ -21,7 +21,6 @@ export class SubmittorPortalComponent {
 
   }
   getPaper(id:number):void {
-
     this.submitterService.getPapers(id)
     .subscribe((paper) => this.paper = paper);
   }

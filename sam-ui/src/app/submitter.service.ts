@@ -19,7 +19,7 @@ export class SubmitterService {
 
 
   getPapers(id: number): Observable<any> {
-    return this.http.get<Paper[]>(this.submitterUrl + id+"/papers", this.httpOptions).pipe(
+    return this.http.get<any>("/"+ id+"/papers", this.httpOptions).pipe(
       catchError(this.handleError<Paper[]>('getpapers', []))
     );
   }
