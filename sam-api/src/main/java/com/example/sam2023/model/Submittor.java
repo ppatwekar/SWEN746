@@ -35,7 +35,20 @@ public class Submittor extends AbstractUser{
         this.papersSubmitted = papersSubmitted;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Submittor)){
+            return false;
+        }
 
+        Submittor s = (Submittor)o;
+
+        return s.getEmail().equals(this.getEmail())
+        && s.getId() == this.getId()
+        && s.getName().equals(this.getName())
+        && s.getPassword().equals(this.getPassword())
+        && s.getPapersSubmitted().equals(this.getPapersSubmitted());
+    }
 
     
 }

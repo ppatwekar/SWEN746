@@ -12,8 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
 import com.example.sam2023.model.Paper;
+import com.example.sam2023.model.Submittor;
+import com.example.sam2023.model.UserCredential;
 import com.example.sam2023.persistance.dao.PaperDAO;
 import com.example.sam2023.persistance.dao.SubmittorDAO;
+import com.example.sam2023.persistance.daoFiles.AbstractUserDAOFile;
 import com.example.sam2023.persistance.daoFiles.PaperDAOFile;
 import com.example.sam2023.persistance.daoFiles.SubmittorDAOFile;
 import com.example.sam2023.service.PaperService;
@@ -25,7 +28,7 @@ public class SubmittorControllerTest {
     private PaperService paperService;
     private PaperDAO paperDAO;
     private SubmittorController submittorController;
-
+    private SubmittorDAOFile submittorDAOFile;
     @BeforeEach
     void init(){
         this.submittorDAO = mock(SubmittorDAOFile.class);
@@ -33,6 +36,7 @@ public class SubmittorControllerTest {
         this.paperService = mock(PaperService.class);
         this.paperDAO = mock(PaperDAOFile.class);
         this.submittorController = new SubmittorController(submittorDAO, submittorService, paperService, paperDAO);
+        this.submittorDAOFile = mock(SubmittorDAOFile.class);
     }
 
     @Test
@@ -47,5 +51,15 @@ public class SubmittorControllerTest {
         assertEquals(resp.getBody(), paper);
     }
 
-    
+    @Test
+    void testAuthenticate(){
+        UserCredential u = new UserCredential("email@email.com", "password");
+
+        Submittor submittor = new Submittor(0, "name", new ArrayList<>(), "email@email.com", "password");
+        when(this.submittorDAO.authenticateUser(u)).thenReturn(submittor);
+
+        ResponseEntity<Submittor> resp = this.submittorController.authenticate(u);
+
+        assertEquals(submittor, resp.getBody());
+    }
 }
