@@ -14,3 +14,10 @@ $ cd sam-ui
 $  npm i
 $  ng serve -o
 ```
+
+Login proceedure:
+click on submitter button and login with the followind cerdentials 
+email: nice@nice.com
+password: nice
+
+You should be able to access the submitter portal now
