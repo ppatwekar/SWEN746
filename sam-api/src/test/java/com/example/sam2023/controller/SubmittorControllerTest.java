@@ -75,4 +75,14 @@ public class SubmittorControllerTest {
 
         assertEquals(papers[0], resp.getBody()[0]);
     }
+
+    @Test
+    void testAddPaperInfo() throws IOException{
+        Paper paper = new Paper(0, new ArrayList<>(), 0, "name");
+        when(this.paperDAO.create(paper)).thenReturn(paper);
+        when(this.submittorService.addPaperSubmission(0, 0)).thenReturn(true);
+
+        ResponseEntity<Paper> resp = this.submittorController.addPaperInfo(paper);
+        assertEquals(paper, resp.getBody());
+    }   
 }
