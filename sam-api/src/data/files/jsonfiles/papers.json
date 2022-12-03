@@ -1,11 +1,14 @@
-[{
-    "id": 1,
-    "name": "paper1",
-    "reviewIds": 21,
-    "submittorId": 1
-}, {
-    "id": 2,
-    "name": "paperOnModeling",
-    "reviewIds": 331,
-    "submittorId": 11
-}]
+[
+  {
+    "id" : 1,
+    "reviewIds" : [1,2],
+    "submittorId" : 11,
+    "name" : "paper1"
+  },
+  {
+    "id" : 2,
+    "reviewIds" : [5,6],
+    "submittorId" : 12,
+    "name" : "java.lang.Exception"
+  }
+]
