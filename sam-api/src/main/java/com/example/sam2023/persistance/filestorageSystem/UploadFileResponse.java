@@ -28,6 +28,18 @@ public class UploadFileResponse {
             this.size = size;
         }
     
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof UploadFileResponse)){
+            return false;
+        }
+
+        UploadFileResponse u = (UploadFileResponse)o;
+
+        return u.fileName.equals(this.fileName)
+        && u.fileType.equals(this.fileType)
+        && u.size == this.size;
+    }
 
 
     

@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sam2023.model.Paper;
 import com.example.sam2023.model.Submittor;
@@ -19,6 +22,7 @@ import com.example.sam2023.persistance.dao.SubmittorDAO;
 import com.example.sam2023.persistance.daoFiles.AbstractUserDAOFile;
 import com.example.sam2023.persistance.daoFiles.PaperDAOFile;
 import com.example.sam2023.persistance.daoFiles.SubmittorDAOFile;
+import com.example.sam2023.persistance.filestorageSystem.UploadFileResponse;
 import com.example.sam2023.service.PaperService;
 import com.example.sam2023.service.SubmittorService;
 
@@ -95,5 +99,66 @@ public class SubmittorControllerTest {
         ResponseEntity<Submittor> resp = this.submittorController.getSubmittorById(id);
 
         assertEquals(submittor, resp.getBody());
+    }
+
+    @Test
+    void testAddPaperFile(){
+        MultipartFile file = new MultipartFile() {
+
+            @Override
+            public String getName() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                // TODO Auto-generated method stub
+                return "name";
+            }
+
+            @Override
+            public String getContentType() {
+                // TODO Auto-generated method stub
+                return "pdf";
+            }
+
+            @Override
+            public boolean isEmpty() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public long getSize() {
+                // TODO Auto-generated method stub
+                return 500;
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public void transferTo(File dest) throws IOException, IllegalStateException {
+                // TODO Auto-generated method stub
+            }
+            
+        };
+
+        int id = 6;
+
+        when(this.submittorService.addPaperFile(id, file)).thenReturn(true);
+
+        UploadFileResponse response = this.submittorController.addPaperFile(id, file);
+
     }
 }
