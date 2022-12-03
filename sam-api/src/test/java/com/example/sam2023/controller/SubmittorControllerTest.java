@@ -62,4 +62,17 @@ public class SubmittorControllerTest {
 
         assertEquals(submittor, resp.getBody());
     }
+
+    @Test
+    void testGetAllPapers(){
+        Paper[] papers = {
+            new Paper(0, new ArrayList<>(), 0, "name")
+        };
+
+        when(this.submittorService.getAllPapers(69)).thenReturn(papers);
+
+        ResponseEntity<Paper[]> resp = this.submittorController.getAllPapers(69);
+
+        assertEquals(papers[0], resp.getBody()[0]);
+    }
 }
