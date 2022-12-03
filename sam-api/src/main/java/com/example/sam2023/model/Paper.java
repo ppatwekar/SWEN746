@@ -41,6 +41,20 @@ public class Paper extends AbstractIdFile{
         this.submittorId = submittorId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Paper)){
+            return false;
+        }
+
+        Paper p = (Paper)o;
+
+        return p.getId() == this.getId() 
+        && p.getName() == this.getName()
+        && p.getSubmittorId() == this.getSubmittorId()
+        && p.getReviewIds().equals(this.getReviewIds());
+    }
+
 
 
 }
