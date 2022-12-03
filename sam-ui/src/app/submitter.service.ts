@@ -51,6 +51,13 @@ export class SubmitterService {
       catchError(this.handleError<any>('upload', []))
     );
   }
+  addPaper(p:Paper): Observable<any>{
+    return this.http.post<any>(this.submitterUrl +this.id+"addPaperFile",p,this.httpOptions).pipe(
+      catchError(this.handleError<any>('upload', []))
+    );
+  }
+
+  
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

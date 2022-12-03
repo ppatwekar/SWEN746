@@ -50,8 +50,12 @@ onFileSelected(event: any) {
     .subscribe((paper) => {this.p = paper
       console.log("hereeeeeeeeeeee")
       console.log(paper)
-      this.p.name = name
-      this.submitterService.updatePaper(this.p,).subscribe((paper) => this.p = paper);
+      if(paper!=undefined)
+      {this.p.name = name
+      this.submitterService.updatePaper(this.p,).subscribe((paper) => this.p = paper);}
+      else{
+        this.p.name = name
+        this.submitterService.updatePaper(this.p,).subscribe((paper) => this.p = paper);}
     
     });
 
