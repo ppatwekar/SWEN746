@@ -17,7 +17,7 @@ $  ng serve -o
 
 Login proceedure:
 
-click on submitter button and login with the followind cerdentials 
+click on submitter button and login with the following cerdentials 
 
 email: nice@nice.com
 
