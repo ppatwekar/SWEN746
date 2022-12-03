@@ -85,4 +85,15 @@ public class SubmittorControllerTest {
         ResponseEntity<Paper> resp = this.submittorController.addPaperInfo(paper);
         assertEquals(paper, resp.getBody());
     }   
+
+    @Test
+    void getSubmittorByIdTest(){
+        int id = 5;
+        Submittor submittor = new Submittor(id, "", new ArrayList<>(), "", "");
+        when(this.submittorDAO.get(id)).thenReturn(submittor);
+
+        ResponseEntity<Submittor> resp = this.submittorController.getSubmittorById(id);
+
+        assertEquals(submittor, resp.getBody());
+    }
 }
