@@ -1,14 +1,17 @@
 [
   {
-    "id" : 1,
-    "reviewIds" : [1,2],
-    "submittorId" : 11,
-    "name" : "paper1"
+    "id": 1,
+    "reviewIds": [],
+    "submittorId": 11,
+    "name": "NewName"
   },
   {
-    "id" : 2,
-    "reviewIds" : [5,6],
-    "submittorId" : 12,
-    "name" : "java.lang.Exception"
+    "id": 2,
+    "reviewIds": [
+      5,
+      6
+    ],
+    "submittorId": 12,
+    "name": "java.lang.Exception"
   }
 ]
